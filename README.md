@@ -16,7 +16,7 @@
 ### function (zipfile, files = NULL, list = FALSE, overwrite = TRUE, 
           junkpaths = FALSE, exdir = ".", unzip = "internal", setTimes = FALSE) 
 {
-###  if (identical(unzip, "internal")) {
+  if (identical(unzip, "internal")) {
     if (!list && !missing(exdir)) 
       dir.create(exdir, showWarnings = FALSE, recursive = TRUE)
     res <- .External(C_unzip, zipfile, files, exdir, list, 
