@@ -28,7 +28,7 @@
     }
     else invisible(attr(res, "extracted"))
   }
-  else {
+###  else {
     WINDOWS <- .Platform$OS.type == "windows"
     if (!is.character(unzip) || length(unzip) != 1L || !nzchar(unzip)) 
       stop("'unzip' must be a single character string")
