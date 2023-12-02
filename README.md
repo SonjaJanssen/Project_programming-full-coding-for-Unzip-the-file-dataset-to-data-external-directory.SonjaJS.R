@@ -18,15 +18,15 @@
 
 ## Function to unzip files
 # Parameters:
-## - zipfile: Path to the zip file
-## - files: A character vector of files to extract (default is NULL, which extracts all)
-## - list: Logical, if TRUE, list the files that would be extracted without actually extracting them (default is FALSE)
-## - overwrite: Logical, if TRUE, overwrite existing files (default is TRUE)
-## - junkpaths: Logical, if TRUE, junk paths and extract all files in the current working directory (default is FALSE)
-## - exdir: The directory to which files should be extracted (default is the current working directory)
-## - unzip: The command to be used for unzipping (default is "internal" for the internal R unzip function)
-## - setTimes: Logical, if TRUE, set the times of the extracted files to the modification times of the original files (default is FALSE)
-## Returns: A data frame with extracted file information (if list is TRUE), otherwise, invisible NULL
+### - zipfile: Path to the zip file
+### - files: A character vector of files to extract (default is NULL, which extracts all)
+### - list: Logical, if TRUE, list the files that would be extracted without actually extracting them (default is FALSE)
+### - overwrite: Logical, if TRUE, overwrite existing files (default is TRUE)
+### - junkpaths: Logical, if TRUE, junk paths and extract all files in the current working directory (default is FALSE)
+### - exdir: The directory to which files should be extracted (default is the current working directory)
+### - unzip: The command to be used for unzipping (default is "internal" for the internal R unzip function)
+### - setTimes: Logical, if TRUE, set the times of the extracted files to the modification times of the original files (default is FALSE)
+### Returns: A data frame with extracted file information (if list is TRUE), otherwise, invisible NULL
 
 unzip_files <- function(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
                          junkpaths = FALSE, exdir = ".", unzip = "internal", setTimes = FALSE) {
