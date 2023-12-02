@@ -16,17 +16,17 @@
 ## Unzipped file dataSet to data exdirectory
 #*******************************************************************************
 
-# Function to unzip files
+## Function to unzip files
 # Parameters:
-# - zipfile: Path to the zip file
-# - files: A character vector of files to extract (default is NULL, which extracts all)
-# - list: Logical, if TRUE, list the files that would be extracted without actually extracting them (default is FALSE)
-# - overwrite: Logical, if TRUE, overwrite existing files (default is TRUE)
-# - junkpaths: Logical, if TRUE, junk paths and extract all files in the current working directory (default is FALSE)
-# - exdir: The directory to which files should be extracted (default is the current working directory)
-# - unzip: The command to be used for unzipping (default is "internal" for the internal R unzip function)
-# - setTimes: Logical, if TRUE, set the times of the extracted files to the modification times of the original files (default is FALSE)
-# Returns: A data frame with extracted file information (if list is TRUE), otherwise, invisible NULL
+## - zipfile: Path to the zip file
+## - files: A character vector of files to extract (default is NULL, which extracts all)
+## - list: Logical, if TRUE, list the files that would be extracted without actually extracting them (default is FALSE)
+## - overwrite: Logical, if TRUE, overwrite existing files (default is TRUE)
+## - junkpaths: Logical, if TRUE, junk paths and extract all files in the current working directory (default is FALSE)
+## - exdir: The directory to which files should be extracted (default is the current working directory)
+## - unzip: The command to be used for unzipping (default is "internal" for the internal R unzip function)
+## - setTimes: Logical, if TRUE, set the times of the extracted files to the modification times of the original files (default is FALSE)
+## Returns: A data frame with extracted file information (if list is TRUE), otherwise, invisible NULL
 
 unzip_files <- function(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
                          junkpaths = FALSE, exdir = ".", unzip = "internal", setTimes = FALSE) {
@@ -37,17 +37,17 @@ unzip_files <- function(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
     if (!list && !missing(exdir)) 
       dir.create(exdir, showWarnings = FALSE, recursive = TRUE)
     
-    # Step 2: Call the internal unzip function
+  # Step 2: Call the internal unzip function
     res <- .External(C_unzip, zipfile, files, exdir, list, 
                      overwrite, junkpaths, setTimes)
     
     if (list) {
-      # Step 3: Extract file information and return as a data frame
+  # Step 3: Extract file information and return as a data frame
       dates <- as.POSIXct(res[[3]], "%Y-%m-%d %H:%M", tz = "UTC")
       data.frame(Name = res[[1]], Length = res[[2]], Date = dates, 
                  stringsAsFactors = FALSE)
     } else {
-      # Step 4: Return invisible extracted files
+  # Step 4: Return invisible extracted files
       invisible(attr(res, "extracted"))
     }
   } else {
@@ -61,7 +61,7 @@ unzip_files <- function(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
     zipfile <- path.expand(zipfile)
     
     if (list) {
-      # Step 5: List files without actually extracting
+  # Step 5: List files without actually extracting
       res <- if (WINDOWS) 
         system2(unzip, c("-ql", shQuote(zipfile)), stdout = TRUE)
       else system2(unzip, c("-ql", shQuote(zipfile)), stdout = TRUE, 
@@ -116,17 +116,20 @@ unzip_files <- function(zipfile, files = NULL, list = FALSE, overwrite = TRUE,
 }
 
 # Example Usage
-# Unzipping a file and listing the extracted files
+## Unzipping a file and listing the extracted files
 result <- unzip_files(zipfile = "./data/Dataset.zip", list = TRUE)
 cat("Outcome: The following files have been extracted:\n")
 print(result)
 
 # Conclusions
-# - The unzip_files function provides a convenient way to extract files from a zip archive in R.
-# - It supports both internal R unzip functionality and external unzip commands.
-# - The function allows users to list the files that would be extracted without actually extracting them.
-# - Users can specify various parameters such as overwrite, junkpaths, and the extraction directory.
-# - The function returns extracted file information, including file names, lengths, and modification dates.
-# - It can be easily incorporated into data preprocessing or analysis workflows that involve handling zip files.
-# - Overall, the function is a valuable tool for working with compressed datasets in R.
+## - The unzip_files function provides a convenient way to extract files from a zip archive in R.
+## - It supports both internal R unzip functionality and external unzip commands.
+## - The function allows users to list the files that would be extracted without actually extracting them.
+## - Users can specify various parameters such as overwrite, junkpaths, and the extraction directory.
+## - The function returns extracted file information, including file names, lengths, and modification dates.
+## - It can be easily incorporated into data preprocessing or analysis workflows that involve handling zip files.
+## - Overall, the function is a valuable tool for working with compressed datasets in R.
+
+
+
 
